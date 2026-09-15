@@ -1,0 +1,154 @@
+/* =========================================================
+   KELVARIS — POLISH LAYER
+   Loaded last. Two jobs only:
+   1) Robustness: no horizontal scroll, real touch targets,
+      fluid type, safe-area support, no overflow at 320–1920px.
+   2) A small amount of extra visual richness on top of the
+      warm-glass theme: a cooler teal accent used sparingly
+      next to the amber, slightly deeper glass shadows, a
+      touch more contrast on muted text for small screens.
+   ========================================================= */
+
+:root{
+  --color-teal: #0E7C86;
+  --color-teal-light: #48B8C2;
+}
+
+/* ---------- Global robustness ---------- */
+html, body{
+  max-width: 100%;
+  overflow-x: hidden;
+}
+*{
+  -webkit-tap-highlight-color: transparent;
+}
+img, svg, video{
+  max-width: 100%;
+  height: auto;
+}
+input, select, textarea, button{
+  max-width: 100%;
+  font-size: 16px; /* prevents iOS auto-zoom on focus */
+}
+
+/* Real touch targets everywhere on touch devices */
+.nav-links a,
+.btn-skeu,
+.filter-btn,
+.proj-filter-btn,
+.navbar-toggle,
+.modal-close,
+.footer-social a{
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.skeu-navbar .nav-links li a,
+.skeu-navbar .nav-links a{
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* iOS notch / home-indicator safe areas */
+.skeu-navbar{
+  padding-left: max(2rem, env(safe-area-inset-left));
+  padding-right: max(2rem, env(safe-area-inset-right));
+}
+.skeu-footer{
+  padding-bottom: max(20px, env(safe-area-inset-bottom));
+}
+
+/* Fluid type safety net for very small phones (320–360px) */
+@media (max-width: 380px){
+  .hero-brand-name,
+  .projects-hero-title{
+    font-size: clamp(2.6rem, 15vw, 4rem) !important;
+  }
+  .section-title,
+  .page-header-section .section-title{
+    font-size: clamp(2rem, 9vw, 2.6rem) !important;
+  }
+  .skeu-navbar{
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+  .navbar-brand span{ display: none; } /* keep just the wordmark/icon on the smallest screens */
+}
+
+/* Prevent any leftover fixed-width block from forcing a scrollbar on small phones */
+@media (max-width: 480px){
+  [style*="min-width:240px"],
+  [style*="min-width:280px"]{
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+}
+
+/* ---------- Mobile menu: lock background scroll + smoother feel ---------- */
+body.menu-open{
+  overflow: hidden;
+}
+.nav-links{
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+/* ---------- Larger desktop: keep content from over-stretching ---------- */
+@media (min-width: 1600px){
+  .skeu-hero .hero-inner,
+  .page-header-section .container,
+  .skeu-section .container{
+    max-width: 1360px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* ---------- Visual refinement: teal used sparingly as a second accent ---------- */
+.card-icon-panel i,
+.proj-card-img i{
+  background: linear-gradient(135deg, var(--color-amber-light), var(--color-teal-light));
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.hero-brand-subtitle,
+.projects-hero-subtitle{
+  background: linear-gradient(90deg, var(--color-amber-dark), var(--color-teal));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.section-label,
+.page-header-section .section-label{
+  color: var(--color-teal) !important;
+}
+
+/* Slightly deeper, more premium glass shadows */
+.skeu-card, .proj-card, .team-card, .about-panel, .contact-info-block, .skeu-form-panel{
+  box-shadow:
+    0 22px 50px rgba(24,36,61,.12),
+    0 2px 6px rgba(24,36,61,.06),
+    inset 0 1px 0 rgba(255,255,255,.8) !important;
+}
+.skeu-card:hover, .proj-card:hover, .team-card:hover, .contact-info-block:hover{
+  transform: translateY(-4px);
+  box-shadow:
+    0 30px 65px rgba(24,36,61,.16),
+    0 0 0 1px rgba(214,138,22,.12) !important;
+}
+
+/* Slightly stronger muted-text contrast for readability on small screens */
+@media (max-width: 640px){
+  .card-text, .proj-card p, .about-panel p, .contact-info-block p, p{
+    color: #4C5A72 !important;
+  }
+}
+
+/* Focus visibility on all interactive elements (keyboard + accessibility) */
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible{
+  outline: 2px solid var(--color-teal);
+  outline-offset: 2px;
+  border-radius: 6px;
+}

@@ -1,16 +1,14 @@
-KELVARIS TECHNOLOGIES — WARM GLASS UI
+KELVARIS — MODERNIZED WEBSITE
 
-Theme: Premium Warm Glassmorphism — warm cream, deep navy and amber.
-
-Current updates:
-- Home page uses the Projects-style hero as its only main hero.
-- Projects page NO LONGER contains the hero; it starts directly with the project list.
-- Services, About and Contact standalone pages use page-active so they render correctly.
-- Team member name updated from Meghana Bollineni to Manikanta Sai.
-
-Pages:
+FINAL FILES
 - index.html
-- projects.html
-- services.html
-- about.html
-- contact.html
+- style.css
+
+The CSS has been consolidated into one file. The old skeu-3d.css layer and the separate theme/polish files are not required for this final build.
+
+IMPORTANT
+Keep your existing kelvaris-bulb.png in the same folder as index.html because the website references it.
+
+The website still uses Font Awesome and Google Fonts from CDN links.
+
+Open index.html in your browser to test it.

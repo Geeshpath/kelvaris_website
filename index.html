@@ -9,16 +9,14 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400&family=Share+Tech+Mono:wght@400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400&family=Share+Tech+Mono:wght@400&display=swap" rel="stylesheet">
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-  <!-- Skeuomorphic design system -->
+  <!-- Design system: base structure, then the warm-glass theme (loaded last so its colors win) -->
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="skeu-3d.css">
-  <link rel="stylesheet" href="enhance.css">
-
+      
   <style>
     /* =============================================
        SPA PAGE SYSTEM
@@ -371,10 +369,10 @@
       gap: 10px;
       color: #27d9ff;
       font-family: 'Share Tech Mono', monospace;
-      font-size: 0.78rem;
+      font-size: 0.72rem;
       letter-spacing: 4px;
       text-transform: uppercase;
-      margin-bottom: 1.1rem;
+      margin-bottom: 0.85rem;
     }
 
     .projects-hero-kicker::after {
@@ -388,8 +386,8 @@
     .projects-hero-title {
       margin: 0;
       font-family: 'Oswald', sans-serif;
-      font-size: clamp(4rem, 8vw, 7.5rem);
-      line-height: 0.9;
+      font-size: clamp(3.4rem, 6.4vw, 6.2rem);
+      line-height: 0.92;
       letter-spacing: 0.02em;
       text-transform: uppercase;
       color: #f4f8ff;
@@ -705,8 +703,367 @@
     @media (max-width: 420px) {
       .col-3 { width: 100%; }
     }
+
+    /* =============================================
+       SCROLL-REVEAL (page entrance motion, item 7)
+       ============================================= */
+    .kv-reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .kv-reveal.kv-revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .kv-reveal, .kv-reveal.kv-revealed { transition: none; opacity: 1; transform: none; }
+    }
+
+    /* =============================================
+       CARD HOVER REFINEMENT — gold border + image lift
+       ============================================= */
+    .proj-card, .skeu-card, .team-card {
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+    }
+    .proj-card:hover, .skeu-card:hover, .team-card:hover {
+      border-color: rgba(214, 138, 22, 0.45) !important;
+    }
+    .proj-card-img img, .proj-card-img i {
+      transition: transform .35s ease;
+    }
+    .proj-card:hover .proj-card-img img {
+      transform: scale(1.03);
+    }
+    .proj-card:hover .proj-card-img i {
+      transform: scale(1.08);
+    }
+
+    /* Buttons — arrow nudges right on hover, gold brightens (item 7) */
+    .btn-skeu i.fa-arrow-right {
+      transition: transform .2s ease;
+      display: inline-block;
+    }
+    .btn-skeu:hover i.fa-arrow-right {
+      transform: translateX(5px);
+    }
+    .btn-skeu-primary:hover {
+      filter: brightness(1.05);
+    }
+
+    /* Hero bulb — subtle glow pulse layered on top of the existing float (item 2) */
+    #page-home .home-bulb-glow,
+    .bulb-stage::before {
+      animation: kv-glow-pulse 3.6s ease-in-out infinite;
+    }
+    @keyframes kv-glow-pulse {
+      0%, 100% { opacity: 0.75; }
+      50% { opacity: 1; }
+    }
+
+    /* =============================================
+       LOGO / BRAND — cleaner, unified lockup (item 10)
+       ============================================= */
+    .kv-brand {
+      display: flex !important;
+      align-items: center !important;
+      gap: 10px !important;
+    }
+    .kv-brand img { width: 34px !important; height: 34px !important; }
+    .kv-brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.05;
+      font-family: 'Oswald', sans-serif;
+      font-weight: 700;
+      font-size: 1.02rem;
+      letter-spacing: .04em;
+    }
+    .kv-brand-text em {
+      font-style: normal;
+      font-family: 'Share Tech Mono', monospace;
+      font-weight: 400;
+      font-size: .56rem;
+      letter-spacing: .22em;
+      color: #A86408 !important;
+      margin-top: 2px;
+    }
+
+    /* =============================================
+       EMBER GOLD — gradient reserved for CTAs, active
+       states, key headings & borders only (item 9)
+       ============================================= */
+    .btn-skeu-primary {
+      background: linear-gradient(135deg, #F0A51A, #C87900) !important;
+      border-color: rgba(200,121,0,.5) !important;
+    }
+    .section-title em,
+    .section-title .kv-ember {
+      background: linear-gradient(90deg, #C87900, #F0A51A);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-style: normal;
+    }
+
+    /* =============================================
+       SUBTLE BLUEPRINT/GRID STRUCTURE ON LIGHT
+       SECTIONS — reinforces "engineering" (item 5)
+       ============================================= */
+    .proj-domain-section,
+    .page-header-section,
+    .skeu-section {
+      position: relative;
+    }
+    .proj-domain-section::before,
+    .skeu-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(24,36,61,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(24,36,61,0.035) 1px, transparent 1px);
+      background-size: 38px 38px;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .proj-domain-section > .container,
+    .skeu-section > .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* =============================================
+       SYSTEM LABELS — small engineering-style tags
+       used sparingly (item 11)
+       ============================================= */
+    .kv-sys-tag {
+      display: inline-block;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: .62rem;
+      letter-spacing: .18em;
+      color: var(--amber-glow, #C87900);
+      opacity: .8;
+      margin-bottom: 6px;
+    }
+    .proj-domain-header { position: relative; flex-wrap: wrap; }
+    .proj-domain-header .kv-sys-tag {
+      display: block;
+      flex-basis: 100%;
+      margin-bottom: 2px;
+    }
+
+    /* =============================================
+       WHAT WE BUILD — horizontal capability system
+       (items 6 & 12)
+       ============================================= */
+    .kv-capabilities {
+      padding: 70px 0 30px;
+      background: var(--cream);
+    }
+    .kv-capabilities-statement {
+      max-width: 760px;
+      font-family: 'Lora', serif;
+      font-size: clamp(1.2rem, 2.4vw, 1.65rem);
+      line-height: 1.5;
+      color: var(--navy);
+      margin: 0 0 2.4rem;
+    }
+    .kv-capability-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      padding: 1.15rem 4px;
+      border-bottom: 1px solid rgba(24,36,61,0.1);
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+    .kv-capability-row:first-child { border-top: 1px solid rgba(24,36,61,0.1); }
+    .kv-capability-name {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(1.1rem, 2.6vw, 1.8rem);
+      letter-spacing: .03em;
+      text-transform: uppercase;
+      color: var(--navy);
+    }
+    .kv-capability-name .kv-sys-tag { margin: 0; }
+    .kv-capability-line {
+      flex: 1;
+      height: 1px;
+      background: rgba(24,36,61,0.15);
+      position: relative;
+      max-width: 260px;
+      overflow: hidden;
+    }
+    .kv-capability-line::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, #C87900, #F0A51A);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .35s ease;
+    }
+    .kv-capability-desc {
+      flex: 0 0 260px;
+      font-family: 'Lora', serif;
+      font-size: .82rem;
+      color: var(--metal-mid, #6b7688);
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: opacity .3s ease, transform .3s ease;
+    }
+    .kv-capability-row:hover .kv-capability-line::after { transform: scaleX(1); }
+    .kv-capability-row:hover .kv-capability-desc { opacity: 1; transform: translateX(0); }
+    .kv-capability-row:hover .kv-capability-name { color: #A86408; }
+    @media (max-width: 760px) {
+      .kv-capability-row { flex-wrap: wrap; }
+      .kv-capability-desc { flex-basis: 100%; opacity: .85; transform: none; order: 3; }
+      .kv-capability-line { max-width: none; }
+    }
+
+    /* =============================================
+       PROJECT SPOTLIGHT — large featured project
+       layout, not a card (items 13 & 14)
+       ============================================= */
+    .kv-spotlight {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      background: var(--panel-grad);
+      border: 2px solid var(--navy-mid, #1f3050);
+      border-radius: 16px;
+      padding: 2.6rem;
+      box-shadow: var(--shadow-deep);
+    }
+    .kv-spotlight-tags span {
+      display: inline-block;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: .68rem;
+      letter-spacing: .1em;
+      color: #d7f5ff;
+      border: 1px solid rgba(77,201,255,.4);
+      background: rgba(6,25,46,.5);
+      border-radius: 4px;
+      padding: 5px 10px;
+      margin: 0 6px 8px 0;
+    }
+    .kv-spotlight h3 {
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(1.6rem, 3vw, 2.3rem);
+      color: var(--metal-light, #f4f8ff);
+      text-transform: uppercase;
+      letter-spacing: .02em;
+      margin: .6rem 0 1rem;
+    }
+    .kv-spotlight p { color: var(--metal-mid, #aabbd0); font-family: 'Lora', serif; line-height: 1.7; margin-bottom: 1.2rem; }
+    .kv-pipeline {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: .78rem;
+      letter-spacing: .08em;
+      color: #d7f5ff;
+      text-transform: uppercase;
+    }
+    .kv-pipeline-step {
+      padding: 10px 18px;
+      border: 1px solid rgba(77,201,255,.4);
+      border-radius: 6px;
+      background: rgba(6,25,46,.55);
+      width: min(230px, 100%);
+      text-align: center;
+    }
+    .kv-pipeline-arrow {
+      color: #2bd9ff;
+      font-size: .9rem;
+      padding: 5px 0;
+    }
+    @media (max-width: 860px) {
+      .kv-spotlight { grid-template-columns: 1fr; }
+    }
+
+    /* =============================================
+       TECHNOLOGY → APPLICATION relationship table
+       (item 17)
+       ============================================= */
+    .kv-tech-app-row {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 4px;
+      border-bottom: 1px solid rgba(24,36,61,0.1);
+    }
+    .kv-tech-app-row:first-of-type { border-top: 1px solid rgba(24,36,61,0.1); }
+    .kv-tech-app-row .kv-tech {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1rem;
+      letter-spacing: .03em;
+      color: var(--navy);
+      text-transform: uppercase;
+    }
+    .kv-tech-app-row .kv-app {
+      font-family: 'Lora', serif;
+      font-size: .92rem;
+      color: var(--metal-mid, #6b7688);
+      text-align: right;
+    }
+    .kv-tech-app-row .kv-arrow { color: #C87900; font-size: .85rem; }
+    @media (max-width: 640px) {
+      .kv-tech-app-row { grid-template-columns: 1fr; text-align: left; }
+      .kv-tech-app-row .kv-app { text-align: left; }
+      .kv-tech-app-row .kv-arrow { display: none; }
+    }
+
+    /* =============================================
+       ABOUT — belief statement block (item 15)
+       ============================================= */
+    .kv-belief-block {
+      max-width: 880px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 20px 0 10px;
+    }
+    .kv-belief-block p {
+      font-family: 'Lora', serif;
+      font-size: clamp(1.15rem, 2.6vw, 1.6rem);
+      line-height: 1.55;
+      color: var(--navy);
+    }
+
+    /* =============================================
+       FOOTER — lighter visual weight (item 18)
+       ============================================= */
+    .skeu-footer { padding-top: 46px !important; padding-bottom: 30px !important; }
+    .skeu-footer h5, .skeu-footer h6 {
+      font-family: 'Share Tech Mono', monospace !important;
+      font-size: .7rem !important;
+      letter-spacing: .18em !important;
+      text-transform: uppercase;
+    }
+    /* System-label numbering for home project grid, via CSS counters (item 11) */
+    .kv-home-project-grid { counter-reset: kv-proj; }
+    .kv-home-project-grid .proj-card { counter-increment: kv-proj; position: relative; }
+    .kv-home-project-grid .proj-card-body h5::before {
+      content: "SYS." counter(kv-proj, decimal-leading-zero) " — ";
+      font-family: 'Share Tech Mono', monospace;
+      font-size: .62rem;
+      letter-spacing: .12em;
+      color: var(--amber-glow, #C87900);
+      opacity: .75;
+      display: block;
+      margin-bottom: 4px;
+    }
   </style>
-  <link rel="stylesheet" href="kelvaris-theme.css">
 
 <style id="home-axis-visibility-fix">
 /* Home hero — clearer 3D axis/orbit lines */
@@ -802,51 +1159,88 @@
 
 
 <style id="final-warm-glass-nav">
+  /* Default state: near the top of the page — light glass, minimal weight */
   .skeu-navbar {
-    background: rgba(255, 255, 255, 0.92) !important;
-    border: 1px solid rgba(24, 36, 61, 0.12) !important;
-    border-bottom: 1px solid rgba(24, 36, 61, 0.14) !important;
+    background: rgba(255, 255, 255, 0.55) !important;
+    border: 1px solid rgba(24, 36, 61, 0.07) !important;
+    border-bottom: 1px solid rgba(24, 36, 61, 0.08) !important;
+    box-shadow: none !important;
+    backdrop-filter: blur(18px) saturate(130%) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(130%) !important;
+    transition: background .35s ease, box-shadow .35s ease, border-color .35s ease;
+  }
+
+  /* Scrolled state: slightly darker, opaque, with a soft shadow */
+  .skeu-navbar.navbar-scrolled {
+    background: rgba(255, 255, 255, 0.94) !important;
+    border-color: rgba(24, 36, 61, 0.1) !important;
     box-shadow:
-      0 18px 45px rgba(24, 36, 61, 0.16),
-      0 2px 8px rgba(24, 36, 61, 0.08) !important;
-    backdrop-filter: blur(24px) saturate(125%) !important;
-    -webkit-backdrop-filter: blur(24px) saturate(125%) !important;
+      0 12px 32px rgba(24, 36, 61, 0.12),
+      0 1px 6px rgba(24, 36, 61, 0.06) !important;
   }
 
   .skeu-navbar .nav-links {
-    gap: 7px !important;
+    gap: 2px !important;
+    align-items: center !important;
   }
 
+  /* Normal links — simple text, no boxy pill by default */
   .skeu-navbar .nav-links li a,
   .skeu-navbar .nav-links a {
     display: block !important;
-    color: #18243D !important;
-    background: rgba(255, 255, 255, 0.55) !important;
+    color: #3A4256 !important;
+    background: transparent !important;
     font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif !important;
-    font-size: 1.02rem !important;
-    font-weight: 750 !important;
+    font-size: .96rem !important;
+    font-weight: 550 !important;
     letter-spacing: .1px !important;
     line-height: 1.2 !important;
-    padding: 11px 16px !important;
-    border: 1px solid rgba(24, 36, 61, 0.08) !important;
-    border-radius: 12px !important;
+    padding: 9px 14px !important;
+    border: 1px solid transparent !important;
+    border-radius: 10px !important;
     text-shadow: none !important;
     opacity: 1 !important;
+    transition: color .18s ease, background .18s ease;
   }
 
   .skeu-navbar .nav-links li a:hover,
   .skeu-navbar .nav-links a:hover {
     color: #A86408 !important;
-    background: rgba(242, 184, 75, 0.18) !important;
-    border-color: rgba(214, 138, 22, 0.25) !important;
+    background: rgba(242, 184, 75, 0.12) !important;
   }
 
+  /* Only the active page gets the solid pill treatment */
   .skeu-navbar .nav-links li a.active,
   .skeu-navbar .nav-links a.active {
     color: #FFFFFF !important;
     background: #18243D !important;
     border-color: #18243D !important;
-    box-shadow: 0 7px 18px rgba(24, 36, 61, 0.18) !important;
+    font-weight: 600 !important;
+    box-shadow: 0 5px 14px rgba(24, 36, 61, 0.16) !important;
+  }
+
+  /* Single primary gold CTA, appended after the nav links */
+  .skeu-navbar .nav-cta {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 8px;
+    margin-left: 6px !important;
+    padding: 9px 18px !important;
+    border-radius: 10px !important;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif !important;
+    font-size: .92rem !important;
+    font-weight: 650 !important;
+    letter-spacing: .2px !important;
+    color: #221200 !important;
+    background: linear-gradient(135deg, #F0A51A, #C87900) !important;
+    border: 1px solid rgba(200,121,0,.5) !important;
+    box-shadow: 0 6px 16px rgba(200,121,0,.28) !important;
+    text-shadow: none !important;
+    transition: filter .18s ease, transform .18s ease;
+  }
+  .skeu-navbar .nav-cta:hover {
+    filter: brightness(1.06);
+    transform: translateY(-1px);
   }
 
   .skeu-navbar .navbar-brand {
@@ -864,6 +1258,7 @@
       font-size: .98rem !important;
       background: rgba(255,255,255,.92) !important;
     }
+    .skeu-navbar .nav-cta { display: none !important; }
   }
 </style>
 
@@ -874,20 +1269,31 @@
      NAVBAR  (shared across all pages)
 ════════════════════════════════════════════════ -->
 <nav class="skeu-navbar" id="mainNav">
-  <a class="navbar-brand" href="#" onclick="navigate('home');return false;">
-    <img src="kelvaris-bulb.png" alt="Kelvaris Logo">
-    KELVARIS <span>TECHNOLOGIES</span>
+  <a class="navbar-brand kv-brand" href="#" onclick="navigate('home');return false;" aria-label="Kelvaris Technologies home">
+    <img src="kelvaris-bulb.png" alt="Kelvaris Technologies logo">
+    <span class="kv-brand-copy"><strong>KELVARIS</strong><small>TECHNOLOGIES</small></span>
   </a>
-  <button class="navbar-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu" id="menuToggle">
-    <i class="fas fa-bars" id="menuIcon"></i>
-  </button>
+
   <ul class="nav-links" id="navLinks">
     <li><a href="#" onclick="navigate('home');return false;" data-page="home" class="active">Home</a></li>
-    <li><a href="#" onclick="navigate('projects');return false;" data-page="projects">Projects</a></li>
-    <li><a href="#" onclick="navigate('services');return false;" data-page="services">Services</a></li>
     <li><a href="#" onclick="navigate('about');return false;" data-page="about">About</a></li>
+    <li><a href="#" onclick="navigate('services');return false;" data-page="services">Services</a></li>
+    <li><a href="#" onclick="navigate('projects');return false;" data-page="projects">Projects</a></li>
     <li><a href="#" onclick="navigate('contact');return false;" data-page="contact">Contact</a></li>
   </ul>
+
+  <div class="kv-nav-right">
+    <div class="kv-theme-switch" aria-label="Theme controls">
+      <span class="kv-sun" aria-hidden="true"><i class="fas fa-sun"></i></span>
+      <button type="button" class="kv-theme-btn" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <i class="fas fa-moon" id="themeIcon"></i>
+      </button>
+    </div>
+    <a href="#" class="nav-cta" onclick="navigate('contact');return false;">Let's Build <span aria-hidden="true">→</span></a>
+    <button class="navbar-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu" id="menuToggle">
+      <i class="fas fa-bars" id="menuIcon"></i>
+    </button>
+  </div>
 </nav>
 
 
@@ -899,7 +1305,6 @@
   <section class="projects-hero kv-home-project-hero" id="homeHero">
     <div class="projects-hero-inner">
       <div class="projects-hero-copy">
-        <span class="projects-hero-kicker">// Engineering A Brighter Tomorrow</span>
         <h1 class="projects-hero-title">KELVARIS</h1>
         <div class="projects-hero-subtitle">TECHNOLOGIES</div>
         <p class="projects-hero-description">
@@ -926,108 +1331,7 @@
     </div>
     <div class="projects-scroll-cue"><span>Explore Our Work</span><i class="fas fa-chevron-down"></i></div>
   </section>
-
-  <section class="proj-domain-section kv-home-projects-section" id="homeProjects">
-    <div class="container">
-      <div class="kv-home-section-heading">
-        <div>
-          <span class="section-label">// What We've Built</span>
-          <h2 class="section-title">Our Projects</h2>
-          <p>Real solutions built across hardware, agriculture, IoT, software, mobile applications, and AI.</p>
-        </div>
-        <button class="btn-skeu btn-skeu-outline" onclick="navigate('projects')">View All Projects <i class="fas fa-arrow-right"></i></button>
-      </div>
-      <div class="proj-grid kv-home-project-grid">
-<div class="proj-card">
-<div class="proj-card-img color-green"><i class="fas fa-tint"></i></div>
-<div class="proj-card-body">
-<h5>Kelvaris FlowMatic</h5>
-<p>Smart drip-irrigation platform built for farmers, combining field hardware with a mobile application for connected irrigation management.</p>
-<div class="proj-tags"><span>Agriculture</span><span>IoT</span><span>ESP32</span><span>Flutter</span><span>Firebase</span></div>
-</div>
-</div><div class="proj-card">
-<div class="proj-card-img color-green"><i class="fas fa-seedling"></i></div>
-<div class="proj-card-body">
-<h5>NPKS</h5>
-<p>Agricultural project focused on NPK monitoring to support soil-fertility analysis and better understanding of soil nutrients.</p>
-<div class="proj-tags"><span>Agriculture</span><span>Soil Fertility</span><span>NPK</span></div>
-</div>
-</div><div class="proj-card">
-<div class="proj-card-img color-green"><i class="fas fa-vial"></i></div>
-<div class="proj-card-body">
-<h5>pH Device</h5>
-<p>Soil pH measurement device designed for agricultural soil analysis and monitoring.</p>
-<div class="proj-tags"><span>Agriculture</span><span>Soil pH</span><span>Embedded</span></div>
-</div>
-</div><div class="proj-card">
-<div class="proj-card-img color-teal"><i class="fas fa-toggle-on"></i></div>
-<div class="proj-card-body">
-<h5>Smart Switch</h5>
-<p>Smart switching project for controlling electrical loads through an embedded hardware system.</p>
-<div class="proj-tags"><span>IoT</span><span>Embedded</span><span>Automation</span></div>
-</div>
-</div><div class="proj-card">
-<div class="proj-card-img color-blue"><i class="fas fa-satellite-dish"></i></div>
-<div class="proj-card-body">
-<h5>Ultrasonic</h5>
-<p>Ultrasonic-based hardware project focused on sensing and measurement.</p>
-<div class="proj-tags"><span>Embedded</span><span>Ultrasonic</span><span>Sensors</span></div>
-</div>
-</div><div class="proj-card">
-<div class="proj-card-img color-violet"><i class="fas fa-globe"></i></div>
-<div class="proj-card-body">
-<h5>Web Applications</h5>
-<p>Custom web application projects designed to solve practical business, academic, and real-world requirements.</p>
-<div class="proj-tags"><span>Web</span><span>Frontend</span><span>Backend</span></div>
-</div>
-</div><div class="proj-card">
-<div class="proj-card-img color-violet"><i class="fas fa-brain"></i></div>
-<div class="proj-card-body">
-<h5>Machine Learning Models</h5>
-<p>Machine learning projects covering predictive, classification, and data-driven solutions for different applications.</p>
-<div class="proj-tags"><span>Python</span><span>ML</span><span>Data</span><span>AI</span></div>
-</div>
-</div><div class="proj-card">
-<div class="proj-card-img color-red"><i class="fas fa-network-wired"></i></div>
-<div class="proj-card-body">
-<h5>Deep Learning Models</h5>
-<p>Deep learning projects using neural-network architectures for intelligent image, text, and application-based solutions.</p>
-<div class="proj-tags"><span>Deep Learning</span><span>Neural Networks</span><span>AI</span></div>
-</div>
-</div><div class="proj-card">
-<div class="proj-card-img color-amber"><i class="fas fa-lightbulb"></i></div>
-<div class="proj-card-body">
-<h5>Dupamin &amp; More</h5>
-<p>Additional Kelvaris projects and experimental solutions developed across software, electronics, and intelligent systems.</p>
-<div class="proj-tags"><span>Innovation</span><span>R&amp;D</span><span>Custom Solutions</span></div>
-</div>
-</div><div class="proj-card">
-<div class="proj-card-img color-blue"><i class="fas fa-tint"></i></div>
-<div class="proj-card-body">
-<h5>FlowMatic Mobile App</h5>
-<p>Farmer-focused mobile application for Kelvaris FlowMatic, providing irrigation control, scheduling, real-time monitoring, and field insights.</p>
-<div class="proj-tags"><span>Flutter</span><span>Firebase</span><span>IoT</span><span>Agriculture</span></div>
-</div>
-</div><div class="proj-card">
-<div class="proj-card-img color-blue"><i class="fas fa-mobile-screen-button"></i></div>
-<div class="proj-card-body">
-<h5>Custom Mobile Applications</h5>
-<p>Android and cross-platform applications developed for practical business, service, automation, and user-focused requirements.</p>
-<div class="proj-tags"><span>Android</span><span>Flutter</span><span>UI/UX</span><span>APIs</span></div>
-</div>
-</div><div class="proj-card">
-<div class="proj-card-img color-teal"><i class="fas fa-link"></i></div>
-<div class="proj-card-body">
-<h5>Connected Mobile Solutions</h5>
-<p>Mobile interfaces that connect applications with hardware, cloud services, databases, and IoT devices for real-time control and monitoring.</p>
-<div class="proj-tags"><span>IoT</span><span>Firebase</span><span>APIs</span><span>Real-Time Data</span></div>
-</div>
-</div>
-      </div>
-    </div>
-  </section>
-
-  <footer class="skeu-footer">
+<footer class="skeu-footer">
     <div class="container">
       <div class="row gap-3">
         <div class="col-3 mb-4">
@@ -1057,7 +1361,7 @@
         </div>
       </div>
       <hr class="footer-divider">
-      <p class="footer-copy">© 2025 Kelvaris Technologies. All rights reserved.</p>
+      <p class="footer-copy">© 2026 Kelvaris Technologies. All rights reserved.</p>
     </div>
   </footer>
 </div>
@@ -1068,46 +1372,31 @@
 
   <div class="plate-divider"></div>
 
-  <!-- FEATURED PROJECT -->
-  <section class="proj-domain-section" style="padding-top:55px;">
-    <div class="container">
-      <div class="proj-domain-header">
-        <span class="proj-domain-icon color-green"><i class="fas fa-star"></i></span>
-        <div>
-          <h2 class="proj-domain-title">Featured Project</h2>
-          <p class="proj-domain-sub">Our flagship agricultural IoT solution</p>
-        </div>
-      </div>
-
-      <div class="proj-grid">
-        <div class="proj-card">
-          <div class="proj-card-img color-green">
-            <i class="fas fa-tint"></i>
-          </div>
-          <div class="proj-card-body">
-            <h5>Kelvaris FlowMatic</h5>
-            <p>Smart drip-irrigation platform built for farmers, combining field hardware with a mobile application for connected irrigation management.</p>
-            <div class="proj-tags">
-              <span>Agriculture</span><span>IoT</span><span>ESP32</span><span>Flutter</span><span>Firebase</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- HARDWARE & AGRICULTURE -->
   <section class="proj-domain-section">
     <div class="container">
       <div class="proj-domain-header">
         <span class="proj-domain-icon color-blue"><i class="fas fa-microchip"></i></span>
         <div>
-          <h2 class="proj-domain-title">Hardware & Agriculture</h2>
-          <p class="proj-domain-sub">Embedded devices, agricultural systems & smart electronics</p>
+          <h2 class="proj-domain-title dark-heading">Hardware & Agriculture</h2>
+          <p class="proj-domain-sub dark-heading">Embedded devices, agricultural systems & smart electronics</p>
         </div>
       </div>
 
       <div class="proj-grid">
+
+        <div class="proj-card">
+          <div class="proj-card-img color-green">
+            <i class="fas fa-tint"></i>
+          </div>
+          <div class="proj-card-body">
+            <h5>Kelvaris FlowMatic</h5>
+            <p>Smart drip-irrigation platform combining field hardware with a mobile application for connected irrigation management, sensing, scheduling, and remote control.</p>
+            <div class="proj-tags">
+              <span>Agriculture</span><span>IoT</span><span>ESP32</span><span>Flutter</span>
+            </div>
+          </div>
+        </div>
 
         <div class="proj-card">
           <div class="proj-card-img color-green">
@@ -1293,7 +1582,6 @@
   <!-- CTA -->
   <section style="background:var(--navy-grad);padding:60px 0;text-align:center;">
     <div class="container">
-      <span class="section-label" style="color:var(--amber-glow);">// Have an Idea?</span>
       <h2 style="font-family:'Oswald',sans-serif;font-size:2rem;color:var(--metal-light);letter-spacing:1px;text-transform:uppercase;margin-bottom:1rem;">Let's Build It</h2>
       <p style="color:var(--metal-mid);font-family:'Lora',serif;max-width:500px;margin:0 auto 2rem;">
         Have a hardware, agriculture, web, ML, or AI project in mind? Let's turn the idea into a working solution.
@@ -1332,7 +1620,7 @@
         </div>
       </div>
       <hr class="footer-divider">
-      <p class="footer-copy">© 2025 Kelvaris Technologies. All rights reserved.</p>
+      <p class="footer-copy">© 2026 Kelvaris Technologies. All rights reserved.</p>
     </div>
   </footer>
 
@@ -1347,7 +1635,6 @@
   <section class="page-header-section">
     <div class="pcb-grid"></div>
     <div class="container text-center" style="position:relative;z-index:2;">
-      <span class="section-label" style="color:var(--amber-glow);">// What We Do</span>
       <h1 class="section-title section-title-center" style="color:var(--metal-light);text-shadow:2px 2px 0 rgba(0,0,0,0.4);">Our Services</h1>
       <p style="max-width:680px;margin:1rem auto 0;color:var(--metal-mid);font-family:'Lora',serif;line-height:1.7;">
         Practical technology solutions across hardware, IoT, agriculture, software, mobile applications, and AI.
@@ -1365,7 +1652,7 @@
           <div class="skeu-card">
             <div class="card-icon-panel color-blue"><i class="fas fa-microchip"></i></div>
             <div class="card-body">
-              <span class="section-label">// 01</span>
+              <span class="kv-sys-tag">01 — ENGINEERING</span>
               <h3>Embedded Systems</h3>
               <p>Custom embedded hardware, microcontroller systems, sensors, automation, and connected device solutions.</p>
             </div>
@@ -1376,7 +1663,7 @@
           <div class="skeu-card">
             <div class="card-icon-panel color-teal"><i class="fas fa-wifi"></i></div>
             <div class="card-body">
-              <span class="section-label">// 02</span>
+              <span class="kv-sys-tag">02 — CONNECTIVITY</span>
               <h3>IoT Solutions</h3>
               <p>Connected devices and cloud-integrated systems for monitoring, control, automation, and real-time data.</p>
             </div>
@@ -1387,7 +1674,7 @@
           <div class="skeu-card">
             <div class="card-icon-panel color-green"><i class="fas fa-seedling"></i></div>
             <div class="card-body">
-              <span class="section-label">// 03</span>
+              <span class="kv-sys-tag">03 — CONNECTIVITY</span>
               <h3>Agriculture Technology</h3>
               <p>Smart agriculture devices and platforms for irrigation, soil monitoring, sensing, and farm automation.</p>
             </div>
@@ -1398,7 +1685,7 @@
           <div class="skeu-card">
             <div class="card-icon-panel color-violet"><i class="fas fa-globe"></i></div>
             <div class="card-body">
-              <span class="section-label">// 04</span>
+              <span class="kv-sys-tag">04 — SOFTWARE</span>
               <h3>Web Applications</h3>
               <p>Modern web applications for business, academic, service, automation, and real-world requirements.</p>
             </div>
@@ -1409,7 +1696,7 @@
           <div class="skeu-card">
             <div class="card-icon-panel color-blue"><i class="fas fa-mobile-screen-button"></i></div>
             <div class="card-body">
-              <span class="section-label">// 05</span>
+              <span class="kv-sys-tag">05 — SOFTWARE</span>
               <h3>Mobile Applications</h3>
               <p>Android and cross-platform applications with polished interfaces, APIs, Firebase, and connected services.</p>
             </div>
@@ -1420,7 +1707,7 @@
           <div class="skeu-card">
             <div class="card-icon-panel color-violet"><i class="fas fa-brain"></i></div>
             <div class="card-body">
-              <span class="section-label">// 06</span>
+              <span class="kv-sys-tag">06 — INTELLIGENCE</span>
               <h3>AI / ML</h3>
               <p>Machine learning and deep learning solutions for prediction, classification, intelligent applications, and data-driven systems.</p>
             </div>
@@ -1429,11 +1716,8 @@
 
       </div>
     </div>
-  </section>
-
-  <section style="background:var(--navy-grad);padding:60px 0;text-align:center;">
+  </section><section style="background:var(--navy-grad);padding:60px 0;text-align:center;">
     <div class="container">
-      <span class="section-label" style="color:var(--amber-glow);">// Have an Idea?</span>
       <h2 style="font-family:'Oswald',sans-serif;font-size:2rem;color:var(--metal-light);letter-spacing:1px;text-transform:uppercase;margin-bottom:1rem;">Let's Build It</h2>
       <p style="color:var(--metal-mid);font-family:'Lora',serif;max-width:500px;margin:0 auto 2rem;">
         Tell us what you want to build and we'll help turn the idea into a working solution.
@@ -1444,7 +1728,7 @@
 
   <footer class="skeu-footer">
     <div class="container">
-      <p class="footer-copy">© 2025 Kelvaris Technologies. All rights reserved.</p>
+      <p class="footer-copy">© 2026 Kelvaris Technologies. All rights reserved.</p>
     </div>
   </footer>
 
@@ -1455,7 +1739,6 @@
   <section class="page-header-section">
     <div class="pcb-grid"></div>
     <div class="container text-center" style="position:relative;z-index:2;">
-      <span class="section-label" style="color:var(--amber-glow);">// Who We Are</span>
       <h1 class="section-title section-title-center" style="color:var(--metal-light);text-shadow:2px 2px 0 rgba(0,0,0,0.4);">About Us</h1>
     </div>
   </section>
@@ -1468,7 +1751,6 @@
 
         <div class="col-2 mb-4">
           <div class="about-panel">
-            <span class="section-label">// Our Mission</span>
             <h2 class="section-title" style="margin-bottom:1.4rem;">Passionate<br>About Engineering</h2>
             <p>We are a dedicated team specialising in <strong>Hardware, IoT, Drones, Agriculture Devices, and AI</strong> — delivering innovative solutions for academic projects and real-world applications.</p>
             <p style="margin-top:1rem;">From smart irrigation to autonomous drones and deep learning systems, our focus is on <strong>practical implementations</strong> combined with software intelligence. With strong expertise in microcontrollers, PCB design, aerial systems, and system integration, we help students and businesses turn their ideas into working prototypes.</p>
@@ -1484,7 +1766,6 @@
 
         <div class="col-2 mb-4">
           <div style="background:var(--panel-grad);border-radius:14px;border:2px solid var(--navy-mid);padding:2rem;box-shadow:var(--shadow-deep);">
-            <span class="section-label" style="color:var(--amber-glow);">// The People</span>
             <h3 style="font-family:'Oswald',sans-serif;font-size:1.3rem;color:var(--metal-light);letter-spacing:1px;text-transform:uppercase;margin-bottom:1.4rem;text-shadow:1px 1px 0 rgba(0,0,0,0.4);">Our Team</h3>
             <div class="row gap-2">
               <div class="col-2 mb-2"><div class="team-card"><i class="fas fa-user-cog"></i><h6>Gangadhar Bhagathi</h6></div></div>
@@ -1531,7 +1812,7 @@
         </div>
       </div>
       <hr class="footer-divider">
-      <p class="footer-copy">© 2025 Kelvaris Technologies. All rights reserved.</p>
+      <p class="footer-copy">© 2026 Kelvaris Technologies. All rights reserved.</p>
     </div>
   </footer>
 </div>
@@ -1545,7 +1826,6 @@
   <section class="page-header-section">
     <div class="pcb-grid"></div>
     <div class="container text-center" style="position:relative;z-index:2;">
-      <span class="section-label" style="color:var(--amber-glow);">// Reach Out</span>
       <h1 class="section-title section-title-center" style="color:var(--metal-light);text-shadow:2px 2px 0 rgba(0,0,0,0.4);">Contact Us</h1>
       <p style="color:var(--metal-mid);font-family:'Lora',serif;max-width:500px;margin:1.2rem auto 0;">Share your project details and we'll respond within 24 hours.</p>
     </div>
@@ -1586,7 +1866,6 @@
         <!-- Form -->
         <div style="flex:1;min-width:280px;" class="mb-4">
           <div class="skeu-form-panel">
-            <span class="section-label">// Project Inquiry</span>
             <h2 class="section-title" style="margin-bottom:1.8rem;">Send a Message</h2>
 
             <form action="https://formspree.io/f/xblawnlk" method="POST" onsubmit="handleFormSubmit(event)">
@@ -1652,7 +1931,7 @@
         </div>
       </div>
       <hr class="footer-divider">
-      <p class="footer-copy">© 2025 Kelvaris Technologies. All rights reserved.</p>
+      <p class="footer-copy">© 2026 Kelvaris Technologies. All rights reserved.</p>
     </div>
   </footer>
 </div>
@@ -1836,6 +2115,7 @@
     // Close mobile menu
     document.getElementById('navLinks').classList.remove('open');
     document.getElementById('menuIcon').className = 'fas fa-bars';
+    document.body.classList.remove('menu-open');
 
     // Scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1866,6 +2146,7 @@
     const icon  = document.getElementById('menuIcon');
     const isOpen = links.classList.toggle('open');
     icon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
+    document.body.classList.toggle('menu-open', isOpen);
   }
 
   /* ──────────────────────────────────────────
@@ -2047,14 +2328,63 @@ function filterProjects(domain, btnEl) {
   }
 
   /* ──────────────────────────────────────────
+     LIGHT / DARK MODE
+  ────────────────────────────────────────── */
+  const themeToggle = document.getElementById('themeToggle');
+  const themeIcon = document.getElementById('themeIcon');
+  const savedTheme = localStorage.getItem('kelvaris-theme');
+
+  function applyTheme(theme) {
+    document.body.classList.toggle('kv-dark', theme === 'dark');
+    if (themeIcon) {
+      themeIcon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    }
+    if (themeToggle) {
+      themeToggle.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+      themeToggle.setAttribute('title', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+    }
+  }
+
+  applyTheme(savedTheme === 'dark' ? 'dark' : 'light');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const next = document.body.classList.contains('kv-dark') ? 'light' : 'dark';
+      localStorage.setItem('kelvaris-theme', next);
+      applyTheme(next);
+    });
+  }
+
+  /* ──────────────────────────────────────────
      NAVBAR SCROLL SHADOW
   ────────────────────────────────────────── */
-  window.addEventListener('scroll', () => {
-    document.getElementById('mainNav').style.boxShadow =
-      window.scrollY > 40
-        ? '0 4px 18px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.5) inset'
-        : '0 3px 10px rgba(0,0,0,0.45), 0 1px 0 rgba(255,255,255,0.6) inset';
-  }, { passive: true });
+  const __mainNav = document.getElementById('mainNav');
+  function __syncNavScrollState() {
+    __mainNav.classList.toggle('navbar-scrolled', window.scrollY > 40);
+  }
+  window.addEventListener('scroll', __syncNavScrollState, { passive: true });
+  __syncNavScrollState();
+
+  /* ──────────────────────────────────────────
+     SCROLL-REVEAL: sections/cards fade + rise
+     into place as they enter the viewport
+  ────────────────────────────────────────── */
+  const __revealTargets = document.querySelectorAll(
+    '.proj-card, .skeu-card, .team-card, .about-panel, .contact-info-block, .skeu-form-panel'
+  );
+  if ('IntersectionObserver' in window && __revealTargets.length) {
+    const __revealIO = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('kv-revealed');
+          __revealIO.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    __revealTargets.forEach((el) => {
+      el.classList.add('kv-reveal');
+      __revealIO.observe(el);
+    });
+  }
 </script>
 
 </body>
