@@ -1,4 +1,4 @@
-KELVARIS TECH — WEBSITE UPDATE
+KELVARIS TECH — WEBSITE BRANDING UPDATE
 
 Included:
 - index.html: Existing website with company branding updated to Kelvaris Tech and SEO metadata.
