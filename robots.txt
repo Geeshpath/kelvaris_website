@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://geeshpath.github.io/kelvaris_website/sitemap.xml
